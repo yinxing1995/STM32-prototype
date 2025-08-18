@@ -1,0 +1,1 @@
+https://github.com/isqad/stm32/tree/master/stm32f103

@@ -1,0 +1,39 @@
+include ../../Makefile.config
+
+OBJS_C = $(patsubst %.c, $(OUTPUT_DIR)/$(SUBSYSTEM)/%.o, $(SRCS_C))
+DEPS_C = $(patsubst %.c, $(OUTPUT_DIR)/$(SUBSYSTEM)/%.d, $(SRCS_C))
+
+OBJS_S = $(patsubst %.s, $(OUTPUT_DIR)/$(SUBSYSTEM)/%.o, $(SRCS_S))
+DEPS_S = $(patsubst %.s, $(OUTPUT_DIR)/$(SUBSYSTEM)/%.d, $(SRCS_S))
+
+.PHONY:all
+
+all:build $(DEPS_C) $(OBJS_C) $(DEPS_S) $(OBJS_S)
+
+.PHONY:build
+build:
+	if [ ! -d ../../build/$(SUBSYSTEM) ]; then mkdir ../../build/$(SUBSYSTEM);fi;
+	
+$(DEPS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.d:%.c
+	$(CC) -MM $(INC_DIR) $< -o $@
+	sed -i '1s:$(basename $(notdir $@)).o:$(basename $@).o:g' $@
+
+$(DEPS_S):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.d:%.s
+	$(AS) -mthumb -mcpu=cortex-m3 $(INC_DIR) -MD $@ $< -o $(patsubst %.d,%.o,$@)
+	#sed -i '1s:$(basename $(notdir $@)).o:$(basename $@).o:g' $@
+
+ifneq ($(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d),)
+$(OBJS_C):
+else
+$(OBJS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.o:%.c
+endif
+	$(CC) -Wall $(INC_DIR) $(CFLAG) -c $< -o $@
+
+ifneq ($(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d),)
+$(OBJS_S):
+else
+$(OBJS_S):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.o:%.s
+endif
+	$(CC) -Wall $(INC_DIR) $(CFLAG) -c $< -o $@
+
+-include $(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d)
