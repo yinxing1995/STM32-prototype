@@ -19,7 +19,6 @@ output_dir:
 
 .PHONY:$(MAKE_ANY)
 $(MAKE_ANY):%:%/Makefile.inc
-	echo $(MAKE_ANY)
 	make CC=$(ARM_GCC) AS=$(ARM_AS) -C ./$@ -f Makefile.inc
 
 .PHONY:nuke

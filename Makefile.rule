@@ -19,7 +19,7 @@ $(DEPS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.d:%.c
 	sed -i '1s:$(basename $(notdir $@)).o:$(basename $@).o:g' $@
 
 $(DEPS_S):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.d:%.s
-	$(AS) -mthumb -mcpu=cortex-m3 $(INC_DIR) -MD $@ $< -o $(patsubst %.d,%.o,$@)
+	$(AS) $(ASFLAG) $(INC_DIR) -MD $@ $< -o $(patsubst %.d,%.o,$@)
 	#sed -i '1s:$(basename $(notdir $@)).o:$(basename $@).o:g' $@
 
 ifneq ($(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d),)
