@@ -15,11 +15,11 @@
 vector_table:
     .word  Stack_up
     .word  Reset_Handler
-@    .word  NMI_Handler
-@    .word  HardFault_Handler
-@    .word  MemManage_Handler
-@    .word  BusFault_Handler
-@    .word  UsageFault_Handler
+    .word  Default_Handler              @    .word  NMI_Handler
+    .word  Default_Handler              @    .word  HardFault_Handler
+    .word  Default_Handler              @    .word  MemManage_Handler
+    .word  Default_Handler              @    .word  BusFault_Handler
+    .word  Default_Handler              @    .word  UsageFault_Handler
 @    .word  0
 @    .word  0
 @    .word  0
@@ -83,10 +83,21 @@ vector_table:
 
 .size   vector_table, .-vector_table
 
+
 .section    .text.crt0
 .type   Reset_Handler, %function
 
-Reset_Handler:  
+Reset_Handler:
+    bl  sys_clock_init
     b   main
 
 .size   Reset_Handler, .-Reset_Handler
+
+
+.section    .text.crt0
+.type   Default_Handler, %function
+
+Default_Handler:
+    b   .
+
+.size   Default_Handler, .-Default_Handler

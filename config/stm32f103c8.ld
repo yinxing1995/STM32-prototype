@@ -6,9 +6,11 @@ MEMORY
 
 _stack = ORIGIN(ram) + LENGTH(ram);
 
-SECTIONS
+SECTIONS  
 {
   .text : {
+    KEEP(*(.text.vector_table));
+    KEEP(*(.text.crt0));
     *(.text);
   } > rom
 

@@ -27,13 +27,13 @@ $(OBJS_C):
 else
 $(OBJS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.o:%.c
 endif
-	$(CC) -Wall $(INC_DIR) $(CFLAG) -c $< -o $@
+	$(CC) -Wall $(INC_DIR) $(CFLAG) $(DEFS) -c $< -o $@
 
 ifneq ($(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d),)
 $(OBJS_S):
 else
 $(OBJS_S):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.o:%.s
 endif
-	$(CC) -Wall $(INC_DIR) $(CFLAG) -c $< -o $@
+	$(CC) -Wall $(INC_DIR) $(CFLAG) $(DEFS) -c $< -o $@
 
 -include $(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d)

@@ -17,5 +17,7 @@ int main(void)
         default:
             break;
     }
+    for(;;)
+    {}
     return 0;
 }
