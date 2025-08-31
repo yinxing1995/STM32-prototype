@@ -21,6 +21,15 @@ static void sys_clock_set(void)
     /* HSE as the source of PLL and multiply, 8Mhz * 9 = 72Mhz */
     RCC->CFGR |= (RCC_CFGR_PLLSRC_HSE | RCC_CFGR_PLLMULL9);
 
+    /* AHBCLK = SYSCLK */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
+    
+    /* APBCLK1 = AHBCLK/2 */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV2;
+
+    /* APBCLK2 = AHBCLK */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE2_DIV1;
+
     /* Enable PLL */
     RCC->CR |= RCC_CR_PLLON;
 
