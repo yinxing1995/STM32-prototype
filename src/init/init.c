@@ -1,23 +1,15 @@
-#include "add_c.h"
-#include "sub_c.h"
-#include "public.h"
+#include "uart.h"
+#include "delay.h"
 
 
 int main(void)
 {
-    int a = 1, b = 2;
-    switch(judge(a,add(a,b)))
-    {
-        case GREATER:
-            break;
-        case LESS:
-            break;
-        case EQUAL:
-            break;
-        default:
-            break;
-    }
+    uart_init();
     for(;;)
-    {}
+    {
+        delay_s(1);
+        __asm("nop");
+        uart_send('a');
+    }
     return 0;
 }

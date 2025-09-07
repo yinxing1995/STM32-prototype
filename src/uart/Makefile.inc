@@ -1,8 +1,7 @@
 SRCS_C = \
-	add_c.c \
-	sub_c.c
+    uart.c
 
-SUBSYSTEM = add_sub
+SUBSYSTEM = UART
 
 $(info ***Make for $(SUBSYSTEM)***)
 

@@ -24,8 +24,8 @@ static void sys_clock_set(void)
     /* AHBCLK = SYSCLK */
     RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
     
-    /* APBCLK1 = AHBCLK/2 */
-    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV2;
+    /* APBCLK1 = AHBCLK */
+    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE1_DIV1;
 
     /* APBCLK2 = AHBCLK */
     RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE2_DIV1;
