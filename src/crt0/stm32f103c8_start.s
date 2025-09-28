@@ -25,7 +25,7 @@ vector_table:
     .word  0                            @    .word  0
     .word  0                            @    .word  0
     .word  0                            @    .word  SVC_Handler
-    .word  0                            @    .word  DebugMon_Handler
+    .word  DebugMon_Handler
     .word  0                            @    .word  0
     .word  0                            @    .word  PendSV_Handler
     .word  0                            @    .word  SysTick_Handler
@@ -92,6 +92,15 @@ Reset_Handler:
     b   main
 
 .size   Reset_Handler, .-Reset_Handler
+
+
+.section    .text.crt0
+.type   Reset_Handler, %function
+
+DebugMon_Handler:
+    b   .
+
+.size   DebugMon_Handler, .-DebugMon_Handler
 
 
 .section    .text.crt0
