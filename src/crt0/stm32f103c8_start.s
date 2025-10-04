@@ -25,7 +25,11 @@ vector_table:
     .word  0                            @    .word  0
     .word  0                            @    .word  0
     .word  0                            @    .word  SVC_Handler
+<<<<<<< HEAD
     .word  DebugMon_Handler             @    .word  DebugMon_Handler
+=======
+    .word  DebugMon_Handler
+>>>>>>> d27f07eda8d40f274874be82a3734a7323dc5a60
     .word  0                            @    .word  0
     .word  0                            @    .word  PendSV_Handler
     .word  0                            @    .word  SysTick_Handler
