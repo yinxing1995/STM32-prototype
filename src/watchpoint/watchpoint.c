@@ -16,6 +16,8 @@ void debug_dwt_init(void)
     /* Disable halt debug */
     CoreDebug->DHCSR &= ~CoreDebug_DHCSR_C_DEBUGEN_Msk;
 
+    /* Priority */
+
     SCB->SHP[8] = 0x11;
 
     /* Enable debug monitor exception */
