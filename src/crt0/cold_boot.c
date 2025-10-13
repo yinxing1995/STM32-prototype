@@ -53,6 +53,9 @@ static void sys_clock_set(void)
 
     /* Disable security clock */
     RCC->CR &= ~RCC_CR_CSSON;
+
+    /* Enable faults */
+    SCB->SHCSR |= SCB_SHCSR_USGFAULTENA_Msk | SCB_SHCSR_BUSFAULTENA_Msk | SCB_SHCSR_MEMFAULTENA_Msk;
 }
 
 /* Normally the default value of RCC after reset is 0x0000XX83, in which HSI is on and ready */

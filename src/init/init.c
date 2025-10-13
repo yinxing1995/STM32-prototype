@@ -16,7 +16,7 @@ int main(void)
     }
 #endif
 
-#if 1
+#if 0
     uart_init();
 
     debug_dwt_init();
@@ -30,6 +30,16 @@ int main(void)
         delay_s(1);
         __asm("nop");
         uart_send('a');
+    }
+#endif
+
+#if 1
+    uart_init();
+    for(;;)
+    {
+        delay_ms(10);
+        //__asm("nop");
+        usart_tx_test();
     }
 #endif
 }

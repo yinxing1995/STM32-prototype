@@ -1,13 +1,13 @@
-@ stm32l152 has 0x8000 (32K) SRAM
+@ stm32f103c8t6 has 0x5000 (20K) SRAM
 @ SRAM is starting from 0x20000000
-@ so stack is eq 0x20000000 + 0x8000 = 0x20008000
+@ so stack is eq 0x20000000 + 0x5000 = 0x20005000
 @ flash starts from 0x08000000
 
 .syntax unified
 .thumb
 .cpu cortex-m3
 
-.equ Stack_up, 0x20008000
+.equ Stack_up, 0x20005000
 
 .section    .text.vector_table
 .type   vector_table, %object
