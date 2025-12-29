@@ -1,3 +1,4 @@
+#include <string.h>
 #include "stm32f10x.h"
 
 /* Select systick */
@@ -10,7 +11,7 @@ static void sys_clock_set(void)
     while(!(RCC->CR & RCC_CR_HSERDY))
     {}
 
-    /* We are running on flash so need to sync the speed, or we will fall into harfault */
+    /* We are running on flash so need to sync the speed, or we will fall into hardfault */
     /* Enable Prefetch Buffer */
     FLASH->ACR |= FLASH_ACR_PRFTBE;
 
@@ -75,4 +76,12 @@ void sys_clock_init(void)
 
     /* Set up clock */
     sys_clock_set();
+}
+
+extern uint32_t ld_data_begin;
+extern uint32_t lma_rom_begin;
+extern uint32_t ld_data_size;
+void lma_data_load(void)
+{
+    memcpy((void *)&ld_data_begin, (void *)&lma_rom_begin, (uint32_t)&ld_data_size);
 }

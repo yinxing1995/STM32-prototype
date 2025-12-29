@@ -89,6 +89,7 @@ vector_table:
 
 Reset_Handler:
     bl  sys_clock_init
+    bl  lma_data_load
     b   main
 
 .size   Reset_Handler, .-Reset_Handler

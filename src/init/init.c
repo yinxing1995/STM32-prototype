@@ -2,7 +2,9 @@
 #include "delay.h"
 #include "watchpoint.h"
 
-uint32_t debug_var = 0x0;
+uint32_t debug_var = 0x1;
+
+char p = 'H';
 
 int main(void)
 {
@@ -12,7 +14,7 @@ int main(void)
     {
         delay_s(1);
         __asm("nop");
-        uart_send('a');
+        uart_send(p);
     }
 #endif
 
