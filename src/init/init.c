@@ -1,26 +1,25 @@
 #include "uart.h"
 #include "delay.h"
 #include "watchpoint.h"
+#include "rtc_sleep.h"
 
 uint32_t debug_var = 0x1;
-
-char p = 'H';
+char debug_char = 'H';
 
 int main(void)
 {
-#if 0
-    uart_init();  
+    uart_init();
+    rtc_init();
+#if 1
     for(;;)
     {
         delay_s(1);
         __asm("nop");
-        uart_send(p);
+        uart_send(debug_char);
     }
 #endif
 
 #if 0
-    uart_init();
-
     debug_dwt_init();
 
     debug_dwt_set(&debug_var);
@@ -35,8 +34,7 @@ int main(void)
     }
 #endif
 
-#if 1
-    uart_init();
+#if 0
     for(;;)
     {
         delay_ms(10);
@@ -44,4 +42,5 @@ int main(void)
         usart_tx_test();
     }
 #endif
+    while(1);
 }

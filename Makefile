@@ -29,7 +29,9 @@ nuke:
 .PHONY:archive
 archive:all $(BUILD_DIR)/mx280.elf
 
+.PHONY: $(BUILD_DIR)/mx280.elf
 $(BUILD_DIR)/mx280.elf:
+	@echo Generating combined elf!
 	$(ARM_LD) -T ./config/stm32f103c8.ld $$(find -name *.o) $(LD_STDLIB) -o $(BUILD_DIR)/mx280.elf
 	$(ARM_OBJDUMP) $(BUILD_DIR)/mx280.elf -dxf > $(BUILD_DIR)/mx280.lst
 	$(ARM_OBJCOPY) $(BUILD_DIR)/mx280.elf $(BUILD_DIR)/mx280.bin -O binary

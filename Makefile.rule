@@ -15,6 +15,7 @@ build:
 	if [ ! -d ../../build/$(SUBSYSTEM) ]; then mkdir ../../build/$(SUBSYSTEM);fi;
 	
 $(DEPS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.d:%.c
+	@echo Creating dependency!
 	$(CC) -MM $(INC_DIR) $< -o $@
 	sed -i '1s:$(basename $(notdir $@)).o:$(basename $@).o:g' $@
 
@@ -27,6 +28,7 @@ $(OBJS_C):
 else
 $(OBJS_C):$(OUTPUT_DIR)/$(SUBSYSTEM)/%.o:%.c
 endif
+	@echo Compling libs!
 	$(CC) -Wall $(INC_DIR) $(CFLAG) $(DEFS) -c $< -o $@
 
 ifneq ($(wildcard $(OUTPUT_DIR)/$(SUBSYSTEM)/*.d),)

@@ -1,8 +1,7 @@
-#SRCS_C = \
-#	core_cm3.c \
-#	system_stm32f10x.c
+SRCS_C = \
+    rtc.c
 
-SUBSYSTEM = CMSIS
+SUBSYSTEM = rtc_sleep
 
 $(info ***Make for $(SUBSYSTEM)***)
 

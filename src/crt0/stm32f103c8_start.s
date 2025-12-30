@@ -32,7 +32,7 @@ vector_table:
     .word  0                            @    .word  WWDG_IRQHandler
     .word  0                            @    .word  PVD_IRQHandler
     .word  0                            @    .word  TAMPER_IRQHandler
-    .word  0                            @    .word  RTC_IRQHandler
+    .word  RTC_IRQHandler               @    .word  RTC_IRQHandler
     .word  0                            @    .word  FLASH_IRQHandler
     .word  0                            @    .word  RCC_IRQHandler
     .word  0                            @    .word  EXTI0_IRQHandler
@@ -70,7 +70,7 @@ vector_table:
     .word  0                            @    .word  USART2_IRQHandler
     .word  USART3_IRQHandler            @    .word  USART3_IRQHandler
     .word  0                            @    .word  EXTI15_10_IRQHandler
-    .word  0                            @    .word  RTCAlarm_IRQHandler
+    .word  RTCAlarm_IRQHandler          @    .word  RTCAlarm_IRQHandler
     .word  0                            @    .word  USBWakeUp_IRQHandler  
     .word  0                            @    .word  0
     .word  0                            @    .word  0

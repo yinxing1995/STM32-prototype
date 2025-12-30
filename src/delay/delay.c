@@ -24,6 +24,7 @@ void delay_ms(uint32_t xms)
     delay_us(xms * 1000);
 }
 
+
 /* Systick->LOAD is only 24-bits so need to reuse ms delay for s */
 void delay_s(uint32_t xs)
 {
