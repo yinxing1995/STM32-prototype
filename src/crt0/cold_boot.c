@@ -36,8 +36,7 @@ static void sys_clock_set(void)
 
     /* Wait till PLL is ready */
     while(!(RCC->CR & RCC_CR_PLLRDY))
-    {
-    }
+    {}
     
     RCC->CR |= RCC_CR_CSSON;
 
@@ -46,8 +45,7 @@ static void sys_clock_set(void)
 
     /* Wait till PLL is used as system clock source */
     while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL)
-    {
-    }
+    {}
 
     /* Turn off HSI */
     RCC->CR &= ~RCC_CR_HSION;

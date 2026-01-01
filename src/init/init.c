@@ -10,10 +10,11 @@ int main(void)
 {
     uart_init();
     rtc_init();
-#if 1
+
+#if 0
     for(;;)
     {
-        delay_s(1);
+        enter_low_power(3);
         __asm("nop");
         uart_send(debug_char);
     }

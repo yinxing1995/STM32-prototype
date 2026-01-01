@@ -1,5 +1,5 @@
 SRCS_C = \
-    rtc.c
+    rtc_sleep.c
 
 SUBSYSTEM = rtc_sleep
 
