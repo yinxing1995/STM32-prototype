@@ -1,47 +1,53 @@
 #include "uart.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "stm32f10x.h"
 #include "delay.h"
-#include "watchpoint.h"
-#include "rtc_sleep.h"
 
-uint32_t debug_var = 0x1;
 char debug_char = 'H';
+uint32_t task_flag[2] = {0xaa,0xaa};
+
+SemaphoreHandle_t mutex;
+
+void vApplicationIdleHook()
+{
+    __ASM ("wfi");
+}
+
+void test_a(void *p)
+{
+    while(1)
+    {
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        uart_send('a');
+        xSemaphoreGive(mutex);
+        vTaskDelay(100);
+    }
+}
+
+void test_b(void *p)
+{
+    while(1)
+    {
+        xSemaphoreTake(mutex, portMAX_DELAY);
+        uart_send('b');
+        xSemaphoreGive(mutex);
+        vTaskDelay(200);
+    }
+}
+
 
 int main(void)
 {
     uart_init();
-    rtc_init();
 
-#if 0
-    for(;;)
-    {
-        enter_low_power(3);
-        __asm("nop");
-        uart_send(debug_char);
-    }
-#endif
+    mutex = xSemaphoreCreateMutex();
 
-#if 0
-    debug_dwt_init();
+    task_flag[0] = xTaskCreate(test_a, "test_a", 128, NULL, 4, NULL);
+    task_flag[1] = xTaskCreate(test_b, "test_b", 128, NULL, 3, NULL);
+    
+    vTaskStartScheduler();
 
-    debug_dwt_set(&debug_var);
-    debug_var = 0xffffffff;
-    __asm("dsb 0");
-
-    for(;;)
-    {
-        delay_s(1);
-        __asm("nop");
-        uart_send('a');
-    }
-#endif
-
-#if 0
-    for(;;)
-    {
-        delay_ms(10);
-        //__asm("nop");
-        usart_tx_test();
-    }
-#endif
     while(1);
 }

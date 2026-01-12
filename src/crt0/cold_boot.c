@@ -83,3 +83,10 @@ void lma_data_load(void)
 {
     memcpy((void *)&ld_data_begin, (void *)&lma_rom_begin, (uint32_t)&ld_data_size);
 }
+
+extern uint32_t ld_bss_size;
+extern uint32_t ld_bss_begin;
+void bss_zero(void)
+{
+    memset((void *)&ld_bss_begin, 0, (uint32_t)&ld_bss_size);
+}

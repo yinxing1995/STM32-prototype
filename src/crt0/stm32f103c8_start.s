@@ -24,11 +24,11 @@ vector_table:
     .word  0                            @    .word  0
     .word  0                            @    .word  0
     .word  0                            @    .word  0
-    .word  0                            @    .word  SVC_Handler
+    .word  vPortSVCHandler              @    .word  SVC_Handler
     .word  DebugMon_Handler             @    .word  DebugMon_Handler
     .word  0                            @    .word  0
-    .word  0                            @    .word  PendSV_Handler
-    .word  0                            @    .word  SysTick_Handler
+    .word  xPortPendSVHandler           @    .word  PendSV_Handler
+    .word  xPortSysTickHandler          @    .word  SysTick_Handler
     .word  0                            @    .word  WWDG_IRQHandler
     .word  0                            @    .word  PVD_IRQHandler
     .word  0                            @    .word  TAMPER_IRQHandler
@@ -90,6 +90,7 @@ vector_table:
 Reset_Handler:
     bl  sys_clock_init
     bl  lma_data_load
+    bl  bss_zero
     b   main
 
 .size   Reset_Handler, .-Reset_Handler
