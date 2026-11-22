@@ -9,7 +9,7 @@ ARM_OBJCOPY:=arm-none-eabi-objcopy
 MAKE_ANY = $(patsubst %/Makefile.inc,%,$(shell find -name Makefile.inc))
 
 BUILD_DIR = ./build
-LD_STDLIB:= /mnt/f/arm_gcc/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a
+LD_STDLIB:= /mnt/f/Project/arm_gcc/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a
 
 .PHONY:all
 all:output_dir $(MAKE_ANY)
