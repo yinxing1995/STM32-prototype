@@ -37,7 +37,7 @@ SECTIONS
 
   ld_data_size = ld_data_end - ld_data_begin;
 
-  .lma : 
+  .lma (READONLY) : 
   {
     lma_rom_begin = .;
     . += ld_data_size;
