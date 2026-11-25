@@ -8,11 +8,22 @@ _stack = ORIGIN(ram) + LENGTH(ram);
 
 SECTIONS  
 {
-  .text : 
+  .text.crt0 : 
   {
     ld_text_begin = .;
     KEEP(*(.text.vector_table));
     KEEP(*(.text.crt0));
+  } > rom
+
+  .libc_text :
+  {
+      . = ALIGN(4);
+      *libc*.a:*(.text .text*)
+      . = ALIGN(4);
+  } > rom
+
+  .text : 
+  {
     *(.text.*);
     ld_text_end = .;
   } > rom
