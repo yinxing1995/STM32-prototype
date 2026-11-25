@@ -9,7 +9,8 @@ ARM_OBJCOPY:=arm-none-eabi-objcopy
 MAKE_ANY = $(patsubst %/Makefile.inc,%,$(shell find -name Makefile.inc))
 
 BUILD_DIR = ./build
-LD_STDLIB:= /mnt/f/Project/arm_gcc/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi/arm-none-eabi/lib/thumb/v7-m/nofp/libc.a
+
+SYS_LIB_DIR := $(abspath $(dir $(shell $(ARM_GCC) -mcpu=cortex-m3 -mthumb -print-file-name=libc.a)))
 
 .PHONY:all
 all:output_dir $(MAKE_ANY)
@@ -32,7 +33,7 @@ archive:all $(BUILD_DIR)/mx280.elf
 .PHONY: $(BUILD_DIR)/mx280.elf
 $(BUILD_DIR)/mx280.elf:
 	@echo Generating combined elf!
-	$(ARM_LD) --gc-sections -T ./config/stm32f103c8.ld $$(find -name *.o) $(LD_STDLIB) -o $(BUILD_DIR)/mx280.elf
+	$(ARM_LD) --gc-sections -T ./config/stm32f103c8.ld $$(find -name *.o) $(SYS_LIB_DIR)/libc.a -o $(BUILD_DIR)/mx280.elf
 	$(ARM_OBJDUMP) $(BUILD_DIR)/mx280.elf -dxf > $(BUILD_DIR)/mx280.lst
 	$(ARM_OBJCOPY) $(BUILD_DIR)/mx280.elf $(BUILD_DIR)/mx280.bin -O binary
 
